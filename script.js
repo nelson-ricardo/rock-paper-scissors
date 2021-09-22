@@ -4,14 +4,17 @@ function computerSelection() {
 }
 
 function playerSelection() {
-    let selection = prompt("Rock, paper, scissors?", "rock").toLowerCase();
+    let selection = getPlayerSelection();
     
     let options = ['rock', 'paper', 'scissors'];
 
     while(!options.includes(selection)) {
-        selection = prompt("Rock, paper, scissors?", "rock").toLowerCase();
+        selection = getPlayerSelection();
     }
 
     return selection;
 }
 
+function getPlayerSelection() {
+    return prompt("Rock, paper, scissors?", "rock").toLowerCase();
+}
