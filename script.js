@@ -1,24 +1,22 @@
 let options = ['rock', 'paper', 'scissors'];
+let buttons = document.querySelectorAll('button.selection-btn');
 
 function computerSelection() {
     return options[Math.floor(Math.random() * 3)];
 }
 
-function playerSelection() {
-    let selection = getPlayerSelection();
-
-    while(!options.includes(selection)) {
-        selection = getPlayerSelection();
-    }
-
-    return selection;
+function playerSelection(e) {
+    let selection = e.target.textContent.toLowerCase();
+    console.log(selection, selection.length);
 }
 
-function getPlayerSelection() {
-    return prompt("Rock, paper, scissors?", "rock").toLowerCase();
-}
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        playRound(playerSelection(), computerSelection());
+    });
+})
 
-function round(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
     switch(true) {
         case playerSelection === computerSelection: {
             return 0;
@@ -35,31 +33,3 @@ function round(playerSelection, computerSelection) {
         }
     }
 }
-
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for(let i = 0; i < 5; i++) {
-        let currentSelections = round(playerSelection(), computerSelection());
-
-        if(currentSelections === 1) {
-            playerScore++;
-            console.log('You won this round!');
-        } else if(currentSelections === 2) {
-            computerScore++;
-            console.log("You lose this round");
-        } else {
-            console.log('This round was a tie');
-        }
-
-        console.table({
-            playerScore,
-            computerScore
-        });
-    }
-
-    
-}
-
-game();
